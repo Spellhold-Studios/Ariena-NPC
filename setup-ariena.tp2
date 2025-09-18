@@ -1,0 +1,399 @@
+BACKUP ~Ariena\Backup~
+AUTHOR ~Deathsangel deathsangel@spellholdstudios.net~
+AUTO_TRA ~Ariena/%s~
+
+LANGUAGE ~English~ ~english~ ~Ariena\english\setup.tra~
+
+/************************************************************************
+ ************************************************************************
+ **                          Ariena PC  v2.1                           **
+ **            This is a stand-alone NPC, later to be part             **
+ **                 of the larger Mod for the Wicked                   **
+ **                      Created by Guido Voets                        **
+ ************************************************************************
+ ************************************************************************/
+
+BEGIN @0
+
+REQUIRE_FILE ~Data\25Dialog.bif~ @1
+
+/********************************************************
+ * Files are done in the following order:
+ *
+ * ADDING THE KIT
+ * ADDING EPILOGUES
+ * ADDING THE NPC WITH HER ABILITIES AND VOICESET
+ * COMPILE DIALOGUE
+ * PATCHING STATE.IDS
+ * COMPILE, COPY AND APPEND SCRIPTS
+ * ADDING AND PATCHING NON-JOINABLE CREATURES
+ * ADDING SOUNDS
+ * ADDING ITEMS
+ * ADDING DIALOGS TO THE CORRECT .2DA'S
+ * (UN)INSTALLING OF SOUNDS AND VIEWING OF READ-ME
+ * INSTALLING OF PORTRAITS
+ * INSTALLING GRAND-MASTER FIX
+ *
+ ********************************************************/
+
+/*******************************************************
+ * ADDING THE KIT
+ *******************************************************/
+
+COPY_EXISTING ~SPCL152.spl~ ~override\BLRINI.spl~
+ SAY NAME1 @2
+ SAY NAME2 @2
+
+ADD_KIT ~PitFighter~
+
+// clasweap
+~PitFighter              1           1           1           1           1           1           1           1~
+
+// weapprof
+~PitFighter 5 5 0 5 5 5 5 0 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 0 0 0 0 3 2 2 2 3 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0~
+//								   x
+// abclasrq, abclsmod, abdcdsrq, abdcscrq, alignmnt, dualclas
+~PitFighter              9       0       0       0       0       0~
+~PitFighter              0       0       0       0       0       0~
+~PitFighter              0       0       0       0       0       0~
+~PitFighter              0       0       0       0       0       0~
+~PitFighter              1       1       1       1       1       1       1       1       1~
+~PitFighter              0       0       0       0       0       0~
+
+// CLAB*.2da file
+~Ariena\ArienaKit\PitFit.2da~
+
+// kittable.2da
+~~
+
+// Item usability
+~0x40000000     2~ // Same as Barbarian
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//																				//
+// This stuff is unnecessary																	//
+//																				//
+~Fi0~
+~LEAT20 DART03,40 HELM07 BAG26 RING06 RING31 CLCK27 BOOT01 AMUL19 BRAC10 BELT06 AROW11,40 BULL03,40 BOLT06,40 POTN52,5 POTN04,2 POTN14,5 BOW11 BOW19 XBOW06~
+//																				//
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+// Names
+SAY @3
+SAY @3
+SAY @4
+
+COPY ~Ariena\ArienaKit\pitf01.spl~
+~override\pitf01.spl~
+SAY NAME1 @5
+COPY ~Ariena\ArienaKit\COPY~
+~override~
+
+/*******************************************************
+ * ADDING THE NPC WITH HER ABILITIES AND VOICESET
+ *******************************************************/
+
+COPY ~Ariena\cre\MWArn.cre~ ~override\MWArn.cre~
+ WRITE_SHORT   0x244 0
+ WRITE_BYTE    0x246 ~%PitFighter%~    
+ WRITE_BYTE    0x247 0x40
+ SAY NAME1 @6
+ SAY NAME2 @6
+ SAY MORALE @7 
+ SAY HAPPY @8 
+ SAY UNHAPPY_ANNOYED @9 
+ SAY UNHAPPY_SERIOUS @10 
+ SAY UNHAPPY_BREAKING @11 
+ SAY BATTLE_CRY1 @12 
+ SAY LEADER @13 
+ SAY TIRED @14 
+ SAY BORED @15 
+ SAY HURT @16 
+ SAY SELECT_COMMON1 @17 
+ SAY SELECT_COMMON2 @18 
+ SAY SELECT_COMMON3 @19 
+ SAY SELECT_ACTION1 @20 
+ SAY SELECT_ACTION2 @21 
+ SAY SELECT_ACTION3 @22 
+ SAY DAMAGE @23 
+ SAY DYING @24 
+ SAY AREA_FOREST @25 
+ SAY AREA_CITY @26 
+ SAY AREA_DUNGEON @27 
+ SAY AREA_DAY @28 
+ SAY AREA_NIGHT @29 
+ SAY SELECT_ACTION4 @30 
+ SAY SELECT_ACTION5 @31 
+ SAY SELECT_ACTION6 @32 
+ SAY SELECT_RARE2 @33 
+ SAY SELECT_COMMON4 @34 
+ SAY SELECT_COMMON5 @35 
+ SAY CRITICAL_HIT @36 
+ SAY CRITICAL_MISS @37 
+ SAY TARGET_IMMUNE @38 
+ SAY INVENTORY_FULL @39 
+ SAY BATTLE_CRY2 @40 
+ SAY BATTLE_CRY3 @41 
+ SAY SELECT_COMMON6 @42 
+ SAY SELECT_RARE1 @43 
+ SAY REACT_TO_DIE_GENERAL @44 
+ SAY BIO @45
+
+COPY ~Ariena\cre\MWArn25.cre~ ~override\MWArn25.cre~
+ WRITE_SHORT   0x244 0
+ WRITE_BYTE    0x246 ~%PitFighter%~    
+ WRITE_BYTE    0x247 0x40
+ SAY NAME1 @6
+ SAY NAME2 @6
+ SAY MORALE @7 
+ SAY HAPPY @8 
+ SAY UNHAPPY_ANNOYED @9 
+ SAY UNHAPPY_SERIOUS @10 
+ SAY UNHAPPY_BREAKING @11 
+ SAY BATTLE_CRY1 @12 
+ SAY LEADER @13 
+ SAY TIRED @14 
+ SAY BORED @15 
+ SAY HURT @16 
+ SAY SELECT_COMMON1 @17 
+ SAY SELECT_COMMON2 @18 
+ SAY SELECT_COMMON3 @19 
+ SAY SELECT_ACTION1 @20 
+ SAY SELECT_ACTION2 @21 
+ SAY SELECT_ACTION3 @22 
+ SAY DAMAGE @23 
+ SAY DYING @24 
+ SAY AREA_FOREST @25 
+ SAY AREA_CITY @26 
+ SAY AREA_DUNGEON @27 
+ SAY AREA_DAY @28 
+ SAY AREA_NIGHT @29 
+ SAY SELECT_ACTION4 @30 
+ SAY SELECT_ACTION5 @31 
+ SAY SELECT_ACTION6 @32 
+ SAY SELECT_RARE2 @33 
+ SAY SELECT_COMMON4 @34 
+ SAY SELECT_COMMON5 @35 
+ SAY CRITICAL_HIT @36 
+ SAY CRITICAL_MISS @37 
+ SAY TARGET_IMMUNE @38 
+ SAY INVENTORY_FULL @39 
+ SAY BATTLE_CRY2 @40 
+ SAY BATTLE_CRY3 @41 
+ SAY SELECT_COMMON6 @42 
+ SAY SELECT_RARE1 @43 
+ SAY REACT_TO_DIE_GENERAL @44 
+ SAY BIO @45
+
+/*******************************************************
+ * ADDING EPILOGUES
+ *******************************************************/
+
+COPY ~Ariena/2da/Arend1.2da~ ~override~
+REPLACE ~99999~ @46
+
+COPY ~Ariena/2da/Arend2.2da~ ~override~
+REPLACE ~99999~ @47
+
+COPY ~Ariena/2da/Arend3.2da~ ~override~
+REPLACE ~99999~ @48
+
+COPY ~Ariena/2da/Arend4.2da~ ~override~
+REPLACE ~99999~ @49
+
+COPY ~Ariena/2da/Arend5.2da~ ~override~
+REPLACE ~99999~ @50
+
+COPY ~Ariena/2da/Arend6.2da~ ~override~
+REPLACE ~99999~ @51
+
+/*******************************************************
+ * PATCHING STATE.IDS - borrowed from CamDawg
+ *******************************************************/
+
+APPEND ~STATE.IDS~ ~0x80101FEF CD_STATE_NOTVALID~
+             UNLESS ~CD_STATE_NOTVALID~
+
+/*******************************************************
+ * COMPILE DIALOGUE
+ *******************************************************/
+
+ACTION_IF NOT FILE_EXISTS ~override/MWBKID.DLG~ THEN BEGIN
+COMPILE ~Ariena/d/MWBKid.d~
+END
+
+ACTION_IF NOT FILE_EXISTS ~override/MWBKID25.DLG~ THEN BEGIN
+COMPILE ~Ariena/d/MWBKid25.d~
+END
+
+ACTION_IF NOT FILE_EXISTS ~override/MWKIDJ.DLG~ THEN BEGIN
+COMPILE ~Ariena/d/MWKidJ.d~
+END
+
+ACTION_IF NOT FILE_EXISTS ~override/MWIANJ.DLG~ THEN BEGIN
+COMPILE ~Ariena/d/MWIanJ.d~
+END
+
+ACTION_IF NOT FILE_EXISTS ~override/MWKIRIJ.DLG~ THEN BEGIN
+COMPILE ~Ariena/d/MWKiriJ.d~
+END
+
+COMPILE ~Ariena/d/MWArn.d~
+
+COMPILE ~Ariena/d/MWArnP.d~
+
+COMPILE ~Ariena/d/MWBArn.d~
+
+COMPILE ~Ariena/d/MWArnJ.d~
+
+COMPILE ~Ariena/d/MWBoHuL.d~
+
+COMPILE ~Ariena/d/MWAndia.d~
+
+COMPILE ~Ariena/d/MWArn25.d~
+
+COMPILE ~Ariena/d/MWArnP25.d~
+
+COMPILE ~Ariena/d/MWBArn25.d~
+
+COMPILE ~Ariena/d/MWArnJ25.d~
+
+/*******************************************************
+ * COMPILE, COPY AND APPEND SCRIPTS
+ *******************************************************/
+
+COMPILE ~Ariena/scripts/MWARSC.baf~
+
+COMPILE ~Ariena/scripts/MWBoHuL.baf~
+
+COMPILE ~Ariena/scripts/MWTakeAr.baf~
+
+COMPILE ~Ariena/scripts/MWArnfix.baf~
+
+COMPILE ~Ariena/scripts/MWArbert.baf~
+
+COMPILE ~Ariena/scripts/MWARSC25.baf~
+
+EXTEND_TOP ~Ar6200.bcs~ ~Ariena/scripts/MWArbio.baf~
+EXTEND_BOTTOM ~Ar0300.bcs~ ~Ariena/scripts/Ar0300.baf~
+EXTEND_BOTTOM ~Ar1100.bcs~ ~Ariena/scripts/Ar1100.baf~
+
+/*******************************************************
+ * ADDING AND PATCHING NON-JOINABLE CREATURES
+ *******************************************************/
+
+COPY ~Ariena\cre\MWBoHuL.cre~ ~override\MWBoHuL.cre~
+SAY NAME1 @52
+SAY NAME2 @52
+
+COPY ~Ariena\cre\MWBoHuM.cre~ ~override\MWBoHuM.cre~
+SAY NAME1 @53
+SAY NAME2 @53
+
+COPY ~Ariena\cre\MWBoHu1.cre~ ~override\MWBoHu1.cre~
+SAY NAME1 @54
+SAY NAME2 @54
+
+COPY ~Ariena\cre\MWBoHu2.cre~ ~override\MWBoHu2.cre~
+SAY NAME1 @54
+SAY NAME2 @54
+
+COPY ~Ariena\cre\MWBoHu3.cre~ ~override\MWBoHu3.cre~
+SAY NAME1 @54
+SAY NAME2 @54
+
+COPY ~Ariena\cre\MWBoHu4.cre~ ~override\MWBoHu4.cre~
+SAY NAME1 @54
+SAY NAME2 @54
+
+COPY ~Ariena\cre\MWBoHu5.cre~ ~override\MWBoHu5.cre~
+SAY NAME1 @54
+SAY NAME2 @54
+
+COPY ~Ariena\cre\MWAndia.cre~ ~override\MWAndia.cre~
+SAY NAME1 @55
+SAY NAME2 @55
+
+COPY_EXISTING ~HPrelate.cre~ ~override~
+ADD_CRE_ITEM ~MWWesLet~ #0 #0 #0 ~None~ ~inv1~
+
+COPY_EXISTING ~Bertrand.cre~ ~override~
+WRITE_ASCII DEATHVAR ~Bertrand~ #32
+
+/*******************************************************
+ * ADDING SOUNDS
+ *******************************************************/
+
+COPY ~Ariena\audio~ ~override~
+
+/*******************************************************
+ * ADDING ITEMS
+ *******************************************************/
+
+COPY ~Ariena\items\MWArArm.itm~ ~override~
+SAY NAME1 @56
+SAY NAME2 @56
+SAY DESC @57
+SAY UNIDENTIFIED_DESC @58
+
+COPY ~Ariena\items\MWWeslet.itm~ ~override~
+SAY NAME1 @59
+SAY NAME2 @59
+SAY DESC @60
+SAY UNIDENTIFIED_DESC @60
+
+/*******************************************************
+ * ADDING DIALOGS TO THE CORRECT .2DA'S
+ *******************************************************/
+
+
+APPEND ~pdialog.2da~
+~MWAriena      MWArnP      MWArnJ      MWArnD      MWArnP25      MWArnJ25      MWArnD25      MWArn25~
+UNLESS ~MWAriena~
+
+APPEND ~interdia.2da~
+~MWAriena      MWBArn      MWBArn25~
+UNLESS ~MWAriena~
+
+
+/*******************************************************
+ * (UN)INSTALLING OF SOUNDS AND VIEWING OF READ-ME
+ *******************************************************/
+
+AT_INTERACTIVE_EXIT ~Ariena\Arienaaudio.bat~
+AT_INTERACTIVE_EXIT ~Ariena\Arienaaudiouninstall.bat~
+AT_INTERACTIVE_EXIT ~VIEW Ariena\Ariena-readme.htm~
+
+/*******************************************************
+ * INSTALLING OF PORTRAITS
+ *******************************************************/
+
+BEGIN @61
+SUBCOMPONENT @62
+
+COPY ~Ariena\portraits\ArienaL.bmp~ ~override\ArienaL.bmp~
+COPY ~Ariena\portraits\ArienaM.bmp~ ~override\ArienaM.bmp~
+COPY ~Ariena\portraits\ArienaS.bmp~ ~override\ArienaS.bmp~
+
+BEGIN @63
+SUBCOMPONENT @62
+
+COPY ~Ariena\portraits\ArienaL2.bmp~ ~override\ArienaL.bmp~
+COPY ~Ariena\portraits\ArienaM2.bmp~ ~override\ArienaM.bmp~
+COPY ~Ariena\portraits\ArienaS2.bmp~ ~override\ArienaS.bmp~
+
+BEGIN @64
+SUBCOMPONENT @62
+
+COPY ~Ariena\portraits\ArienaL3.bmp~ ~override\ArienaL.bmp~
+COPY ~Ariena\portraits\ArienaM3.bmp~ ~override\ArienaM.bmp~
+COPY ~Ariena\portraits\ArienaS3.bmp~ ~override\ArienaS.bmp~
+
+/*******************************************************
+ * INSTALLING GRAND-MASTER FIX
+ *******************************************************/
+
+BEGIN @65
+
+COPY ~Ariena\GrandMasFix\Wspatck.2da~ ~override\Wspatck.2da~
+COPY ~Ariena\GrandMasFix\Wspecial.2da~ ~override\Wspecial.2da~
